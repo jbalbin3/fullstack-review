@@ -1,21 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+import getUserRepos from './lib/getUserRepos.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       repos: []
     }
 
   }
 
+  // maybe for later
+  // componentDidMount(){
+  //   getTop25((data)=>{
+  //     this.setState({repos: [data]});
+  //   });
+  // };
+
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+    getUserRepos(term);
   }
 
   render () {

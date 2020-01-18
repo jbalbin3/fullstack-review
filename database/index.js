@@ -1,8 +1,17 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+// mongoose.connect('mongodb://localhost/fetcher');
+var promise = mongoose.connect('mongodb://localhost/fetcher', {
+  useMongoClient: true,
+  /* other options */
+});
+
+// promise.then(function(db) {
+//   /* Use `db`, for instance `db.model()`
+// });
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
+
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
