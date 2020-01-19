@@ -14,13 +14,15 @@ let getReposByUsername = (userName, callback) => {
       'Authorization': `token ${config.TOKEN}`
     }
   };
-  console.log('inside getReposByUsername');
   request(options, (err, res, body) => {
     if(!err && res.statusCode == 200) {
       var data = JSON.parse(body);
       callback(data);
     } else {
-      console.error('Error obtaining data from github api ', err);
+      // TODO:
+      // handle issue if username does not exist later
+      // see server/index.js app.post to handle as well
+      console.error('Error obtaining data from github api');
     }
   })
 }

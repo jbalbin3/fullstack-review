@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
 import getUserRepos from './lib/getUserRepos.js';
+import getTopRepos from './lib/getTopRepos.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,25 +11,28 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
-
+    this.search = this.search.bind(this);
   }
 
-  // maybe for later
-  // componentDidMount(){
-  //   getTop25((data)=>{
-  //     this.setState({repos: [data]});
-  //   });
-  // };
+  // show top 25
+  componentDidMount(){
+    getTopRepos((data)=>{
+      this.setState({repos: data});
+    });
+  };
 
   search (term) {
     console.log(`${term} was searched`);
-    getUserRepos(term);
+    getUserRepos(term, ()=>{
+      alert(`${term} was searched`);
+      this.componentDidMount();
+    });
   }
 
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
+      <RepoList topRepos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
     </div>)
   }
